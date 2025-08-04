@@ -8,7 +8,7 @@ prange = input("Inserisci il range delle porte (es 5-200): ")
 rrange = prange.split("-")
 lowport = int(rrange[0]) # questo c'e' sempre anche se l'utente dimentica -
 highport = 65535 # qui mettiamo la porta massima
-if rrange[1]:
+if len(rrange) > 1:
     highport = int(rrange[1])
 print(f"Scansisco il target {target} dalla porta {lowport} alla porta {highport}")
 porte_chiuse = []
@@ -29,4 +29,5 @@ for port in range(lowport, highport+1):
 
 domanda = input("vuoi vedere le porte chiuse? ")
 if domanda.upper().startswith("S"):
-        print(porte_chiuse)
+        # faccio il join di tutti le porte chiuse
+        print(", ".join([str(n) for n in porte_chiuse]))
