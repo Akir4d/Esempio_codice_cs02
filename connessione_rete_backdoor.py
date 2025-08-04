@@ -16,8 +16,13 @@ connection, address = s.accept()
 print("Client connesso con indirizzo:", address)
 # per dialogare dobbiamo avviare un loop che gestisca la connessione
 while True:
+    home_dir = os.path.expanduser('~')
     # invio un prompt
     path = os.getcwd()
+    if path.startswith(home_dir):
+        # ...sostituisci il percorso della home con '~'
+        path = path.replace(home_dir, '~', 1) # '1' per sostituire solo la prima occorrenza
+
     connection.sendall(path.encode() + b"$ ")
     # Mi metto in attesa dello stream de client
     data = connection.recv(1024)
