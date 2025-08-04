@@ -6,6 +6,6 @@ def cubo():
     x = int(input("inserisci un numero: "))
     print(f"il cubo di {x} e' {x**3}")
     
-if __name__ == "__main__":
-    quadrato()
-    cubo()
+
+quadrato()
+cubo()
