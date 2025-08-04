@@ -30,4 +30,4 @@ for port in range(lowport, highport+1):
 domanda = input("vuoi vedere le porte chiuse? ")
 if domanda.upper().startswith("S"):
         # faccio il join di tutti le porte chiuse
-        print(", ".join([str(n) for n in porte_chiuse]))
+        print("\nChiusa: ".join([str(n) for n in porte_chiuse]))
