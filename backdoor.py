@@ -1,7 +1,7 @@
 import socket as so, platform as pl, os 
 
 SRV_ADDR = ""
-SRV_PORT = 1234
+SRV_PORT = 1236
 
 # Creo l'oggetto per gestire la connessione
 s = so.socket(so.AF_INET, so.SOCK_STREAM)
@@ -16,7 +16,7 @@ connection, address = s.accept() # qui il codice si ferma in attesa del client
 # address che e' una tupla che contiene l'indirizzo e la porta della connessione
 
 while True:
-    connection.sendall("1 per info\n2 per lista file\n0 per uscire\n".encode())
+    #connection.sendall("1 per info\n2 per lista file\n0 per uscire\n".encode())
     try:
         # qui attendiamo che il client invii dati
         data = connection.recv(1024)
@@ -38,11 +38,13 @@ while True:
         except:
             tosend = "percorso sbagliato\n"
         connection.sendall(tosend.encode())
+    elif command == '9':
+        connection.close()
+        break
     elif command == '0':
         # chiudo la connessione
         connection.close()
         # la riapro in modo che attenda una nuova connessione
-        break # questo per debug
-        #connection, address = s.accept()
+        connection, address = s.accept()
 s.close()
 
