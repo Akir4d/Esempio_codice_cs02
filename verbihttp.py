@@ -14,7 +14,7 @@ try:
     allow = r.getheader("Allow")
     if allow:
         print("I metodi abilitati sono: ", allow)
-        print("Questi sono gli headers:\n", r.headers, sep="")
+        # print("Questi sono gli headers:\n", r.headers, sep="")
     else:
         print("Non trovo i metodi, questi sono gli headers:\n", r.headers, sep="")
     c.close()
